@@ -2,7 +2,7 @@ import React from 'react'
 import WeatherCard from './WeatherCard'
 import LocationForm from './LocationForm'
 
-function Home({currentWeather, givenLocation, daily, currentLocation, unitsHandler, hourly}){
+function Home({submitHandler, currentWeather, givenLocation, daily, currentLocation, unitsHandler, hourly}){
  
 
   return (
@@ -12,7 +12,7 @@ function Home({currentWeather, givenLocation, daily, currentLocation, unitsHandl
       daily={daily}
       currentLocation={currentLocation}
       unitsHandler={unitsHandler}
-      hourly={hourly}/>: <LocationForm /> }
+      hourly={hourly}/>: <LocationForm submitHandler={submitHandler}/> }
       </div>
   )
 }

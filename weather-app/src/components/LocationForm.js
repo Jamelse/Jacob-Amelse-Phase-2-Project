@@ -1,12 +1,18 @@
 import React, {useState} from "react";
 
-function LocationForm({props}){
+function LocationForm({submitHandler}){
 const [search, setSearch] = useState('')
 
+function onSubmitHandler(e){
+  e.preventDefault();
+  fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=1&appid=9b600cedc45f6dc87e1d5d5a50509246
+  `).then(r => r.json())
+  .then(data => submitHandler(data))
+}
 
   return (
   <div id='searchForm'>
-    <form className='search'>
+    <form className='search' onSubmit={onSubmitHandler}>
     <i className="material-icons" id='locationSymbol'>  location_on</i>
       <input 
       onChange={(e) => setSearch(e.target.value)}

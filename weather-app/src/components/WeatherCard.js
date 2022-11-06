@@ -4,7 +4,7 @@ import HourlyWeather from './HourlyWeather'
 import DailyWeather from './DailyWeather'
 
 
-function WeatherCard({currentWeather, daily, currentLocation, unitsHandler, hourly}){
+function WeatherCard({ currentWeather, currentLocation, daily, hourly, unitsHandler }){
 const [tempCheck, setTempCheck] = useState(false)
 
   function onChangeHandler(e){
@@ -33,8 +33,10 @@ return (
         <WeatherIcon icon={currentWeather.weather[0].icon} size={250}/>
         <p className='temperature'>{`${Math.round(currentWeather.temp)}°`}</p>
         <p className='daily'>{`H:${Math.floor(daily[0].temp.max)}°  L:${Math.floor(daily[0].temp.min)}°`}</p>
+        <div className='weatherForecasts'>
         <HourlyWeather weather={hourly}/>
         <DailyWeather weather={daily}/>
+        </div>
        </div> : <h1>Getting Weather...</h1>} </>
   
   )

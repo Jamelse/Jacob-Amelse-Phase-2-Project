@@ -137,7 +137,7 @@ text-align: center;
 }
 
 .daily {
-  padding-bottom: 10%;
+  padding-bottom: 5%;
 }
 
 .hourlyWeatherContainter {
@@ -154,7 +154,7 @@ text-align: center;
   width: 450px;
   height: 197px;
   padding-right: 5%;
-  
+  scrollbar-gutter: stable;
 }
 
 .dailyWeather {

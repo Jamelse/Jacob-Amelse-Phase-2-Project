@@ -27,19 +27,41 @@ function App(){
     console.log(error);
     setGivenLocation(false)
   };
+
+  function submitHandler(data){
+  if(data){
+    fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${data[0].lat}&lon=${data[0].lon}&units=${units ? 'imperial' : 'metric'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
+    .then(r => r.json())
+    .then(locationData => {
+      setCurrentWeather(locationData)
+    })
+    setLocation(data)
+    setGivenLocation(true)
+ } else {
+  console.log('Couldn\'t find location!')
+ }
+ }
+  
   
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options)      
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);   
   }, [units])
+
+  useEffect(() => {
+    submitHandler();   
+  }, [])
 
   function unitsHandler(){
     setUnits(units => !units)
   }
 
+
   return (
     <div>
       <NavBar />
-       <Home daily={currentWeather.daily}
+       <Home 
+       submitHandler={submitHandler}
+       daily={currentWeather.daily}
        currentWeather={currentWeather.current} 
        givenLocation={givenLocation}
        currentLocation={location}
