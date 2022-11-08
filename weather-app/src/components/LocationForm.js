@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 
-function LocationForm({submitHandler}){
+function LocationForm({submitHandler, setApiLink}){
 const [search, setSearch] = useState('')
 
 function onSubmitHandler(e){
   e.preventDefault();
-  fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=1&appid=9b600cedc45f6dc87e1d5d5a50509246
+  fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=4&appid=9b600cedc45f6dc87e1d5d5a50509246
   `).then(r => r.json())
-  .then(data => submitHandler(data))
+  .then(data => submitHandler(data) )
 }
 
   return (

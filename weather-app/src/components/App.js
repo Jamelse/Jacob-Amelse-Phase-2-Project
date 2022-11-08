@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import NavBar from './NavBar'
 import Home from './Home'
+import {Route, Routes} from 'react-router-dom'
+import LocationForm from './LocationForm'
+import SavedWeatherLocations from './SavedWeatherLocations'
 
 
 
@@ -9,12 +12,19 @@ function App(){
   const [location, setLocation] = useState([])
   const [units, setUnits] = useState(true)
   const [givenLocation, setGivenLocation] = useState(false)
+  const [savedLocations, setSavedLocations] = useState([])
+
+  function saveButtonClick(location){
+    if (!savedLocations.includes(location)){
+      setSavedLocations([...savedLocations, location])
+    }
+  }
 
   const successCallback = (position) => {
    fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${units ? 'imperial' : 'metric'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
          .then(r => r.json())
         .then(data => setCurrentWeather(data))
-  fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=2&appid=9b600cedc45f6dc87e1d5d5a50509246`)
+  fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=1&appid=9b600cedc45f6dc87e1d5d5a50509246`)
   .then(r => r.json())
   .then(data => setLocation(data))
         setGivenLocation(true)
@@ -25,7 +35,6 @@ function App(){
   
   const errorCallback = (error) => {
     console.log(error);
-    setGivenLocation(false)
   };
 
   function submitHandler(data){
@@ -37,9 +46,7 @@ function App(){
     })
     setLocation(data)
     setGivenLocation(true)
- } else {
-  console.log('Couldn\'t find location!')
- }
+ } 
  }
   
   
@@ -49,7 +56,8 @@ function App(){
 
   useEffect(() => {
     submitHandler();   
-  }, [])
+  }, [units])
+  
 
   function unitsHandler(){
     setUnits(units => !units)
@@ -58,16 +66,23 @@ function App(){
 
   return (
     <div>
-      <NavBar />
-       <Home 
+      <NavBar submitHandler={submitHandler}/>
+      <Routes>
+        <Route path='/locations' element={<SavedWeatherLocations savedLocations={savedLocations} savedWeather={currentWeather}/>}>
+        </Route>
+      <Route exact path='/' element={<Home 
        submitHandler={submitHandler}
        daily={currentWeather.daily}
        currentWeather={currentWeather.current} 
        givenLocation={givenLocation}
        currentLocation={location}
        unitsHandler={unitsHandler}
-       hourly={currentWeather.hourly}/>
+       hourly={currentWeather.hourly}
+       buttonClickHandler={saveButtonClick}/>}>
+      </Route>
+       </Routes>
     </div>
+    
   )
 }
 

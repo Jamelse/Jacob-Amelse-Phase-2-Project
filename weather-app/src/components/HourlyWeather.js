@@ -1,7 +1,7 @@
 import React from "react";
 import WeatherIcon from "./WeatherIcon";
 
-function HourlyWeather({weather}){
+function HourlyWeather({weather, currentWeather}){
 
   function getTime(time){
   let hours = time.getHours();
@@ -23,7 +23,7 @@ function HourlyWeather({weather}){
       {weather ? <div className="hourlyWeatherContainter row">
       {weather.slice(0, 0 + 6).map((hour) => {
         return (<div key={hour.dt}className="col s2">
-        <p>{getTime(new Date( hour.dt * 1000))}</p>
+        <p>{getTime(new Date( (hour.dt) * 1000))}</p>
           <WeatherIcon className="col s1" icon={hour.weather[0].icon} size={25}/>
           <p>{`${Math.round(hour.temp)}°`}</p>
           </div>)
