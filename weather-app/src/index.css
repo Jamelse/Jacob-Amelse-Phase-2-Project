@@ -197,3 +197,32 @@ text-align: center;
 .dailyWeatherContainter:hover  {
   overflow-y:  scroll;
 }
+
+.savedLocationsContainer {
+  align-items: center;
+  justify-content: center;
+}
+
+.savedLocationsDay {
+  position: relative;
+  color: white;
+ width: 500px;
+ height: 100px;
+ background:linear-gradient(#1B84B1, #66A9CB);
+overflow: hidden;
+border-radius: 18px;
+text-align: center;
+padding-left: 20px;
+}
+
+.savedLocationsNight {
+  position: relative;
+  color:white;
+ width: 500px;
+ height: 100px;
+ background:linear-gradient(#010621, #313A58);
+overflow: hidden;
+border-radius: 18px;
+text-align: center;
+padding-left: 20px;
+} 

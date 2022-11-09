@@ -18,7 +18,7 @@ return (
     <>
       {currentWeather && daily ?  
         <div className={currentWeather.weather[0].icon.includes('d') ? 'weatherContainerDay z-depth-3' : 'weatherContainerNight z-depth-3'}>
-          <button onClick={() => buttonClickHandler(currentLocation[0])}className='transparent left'><a className="waves-effect waves-light btn transparent"><i className="material-icons left ">add_circle_outline</i>Save Location</a></button>
+          <button onClick={() => buttonClickHandler(currentLocation[0], currentWeather)}className='transparent left'><a className="waves-effect waves-light btn transparent"><i className="material-icons left ">add_circle_outline</i>Save Location</a></button>
         <div className="switch right">
     <label className="white-text">
       F°

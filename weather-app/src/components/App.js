@@ -13,10 +13,12 @@ function App(){
   const [units, setUnits] = useState(true)
   const [givenLocation, setGivenLocation] = useState(false)
   const [savedLocations, setSavedLocations] = useState([])
+  const [savedWeather, setSavedWeather] = useState([])
 
-  function saveButtonClick(location){
-    if (!savedLocations.includes(location)){
+  function saveButtonClick(location, weather){
+    if (!savedLocations.includes(location) && !savedWeather.includes(weather)){
       setSavedLocations([...savedLocations, location])
+      setSavedWeather([...savedWeather, weather])
     }
   }
 
@@ -68,7 +70,7 @@ function App(){
     <div>
       <NavBar submitHandler={submitHandler}/>
       <Routes>
-        <Route path='/locations' element={<SavedWeatherLocations savedLocations={savedLocations} savedWeather={currentWeather}/>}>
+        <Route path='/locations' element={<SavedWeatherLocations savedLocations={savedLocations} savedWeather={savedWeather}/>}>
         </Route>
       <Route exact path='/' element={<Home 
        submitHandler={submitHandler}

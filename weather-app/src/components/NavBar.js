@@ -1,15 +1,18 @@
 import React, {useState} from 'react'
-import {NavLink} from 'react-router-dom'
+import {NavLink, useNavigate} from 'react-router-dom'
+
 
 
 function NavBar({submitHandler}){
 const [newSearch, setNewSearch]= useState('')
+const navigate = useNavigate();
 
 function searchHandler(e){
   e.preventDefault();
   fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${newSearch}&limit=4&appid=9b600cedc45f6dc87e1d5d5a50509246
   `).then(r => r.json())
   .then(data => submitHandler(data) )
+  navigate('/')
 }
 
 return (
