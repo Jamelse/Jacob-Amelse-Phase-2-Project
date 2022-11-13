@@ -13,7 +13,8 @@ function Home({buttonClickHandler, submitHandler, currentWeather, givenLocation,
       currentLocation={currentLocation}
       unitsHandler={unitsHandler}
       hourly={hourly}
-      buttonClickHandler={buttonClickHandler}/>: <LocationForm submitHandler={submitHandler}/> }
+      buttonClickHandler={buttonClickHandler}/>
+      : <LocationForm submitHandler={submitHandler} /> }
       </div>
   )
 }

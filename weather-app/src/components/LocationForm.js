@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 
 
-function LocationForm({submitHandler, setApiLink}){
+function LocationForm({submitHandler, units}){
 const [search, setSearch] = useState('')
+
 
 function onSubmitHandler(e){
   e.preventDefault();

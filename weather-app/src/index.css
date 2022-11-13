@@ -8,6 +8,7 @@
 
 body {
   background-color: #202124;
+ 
 }
 
 #homeDiv {
@@ -123,6 +124,10 @@ border-radius: 18px;
 text-align: center;
 }
 
+.homeButton {
+  cursor: pointer;
+}
+
 .saveButton {
   background: transparent;
 }
@@ -134,7 +139,7 @@ text-align: center;
 
 .locationHeader{
   position: relative;
-  padding: 2%;
+  padding: 3%;
 }
 
 .temperature {
@@ -198,18 +203,23 @@ text-align: center;
   overflow-y:  scroll;
 }
 
-.savedLocationsContainer {
-  align-items: center;
+.savedLocationsContainer{
+  position: relative;
+  width: 1150px;
+  padding: 20px;
+  display: flex;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .savedLocationsDay {
   position: relative;
   color: white;
  width: 500px;
- height: 100px;
+ height: 400px;
+ margin: 20px;
  background:linear-gradient(#1B84B1, #66A9CB);
-overflow: hidden;
 border-radius: 18px;
 text-align: center;
 padding-left: 20px;
@@ -219,10 +229,22 @@ padding-left: 20px;
   position: relative;
   color:white;
  width: 500px;
- height: 100px;
+ height: 400px;
+ margin: 20px;
  background:linear-gradient(#010621, #313A58);
-overflow: hidden;
 border-radius: 18px;
 text-align: center;
 padding-left: 20px;
 } 
+
+.removeButton{
+  position: relative;
+ padding: 2%;
+ cursor: pointer;
+}
+
+
+.savedWeatherButton {
+  position: relative;
+  cursor: pointer;
+}

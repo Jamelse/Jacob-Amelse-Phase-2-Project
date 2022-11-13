@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import NavBar from './NavBar'
 import Home from './Home'
 import {Route, Routes} from 'react-router-dom'
-import LocationForm from './LocationForm'
 import SavedWeatherLocations from './SavedWeatherLocations'
 
 
@@ -36,7 +35,7 @@ function App(){
   };
   
   const errorCallback = (error) => {
-    console.log(error);
+    console.log(error)
   };
 
   function submitHandler(data){
@@ -53,22 +52,20 @@ function App(){
   
   
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);   
-  }, [units])
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
+    submitHandler()   
+  }, [])
 
-  useEffect(() => {
-    submitHandler();   
-  }, [units])
   
 
   function unitsHandler(){
-    setUnits(units => !units)
+    setUnits(units => !units);
   }
-
+  console.log(units)
 
   return (
     <div>
-      <NavBar submitHandler={submitHandler}/>
+      <NavBar submitHandler={submitHandler} unitsHandler={unitsHandler}/>
       <Routes>
         <Route path='/locations' element={<SavedWeatherLocations savedLocations={savedLocations} savedWeather={savedWeather}/>}>
         </Route>

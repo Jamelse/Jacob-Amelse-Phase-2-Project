@@ -3,9 +3,16 @@ import {NavLink, useNavigate} from 'react-router-dom'
 
 
 
-function NavBar({submitHandler}){
+function NavBar({submitHandler, unitsHandler}){
 const [newSearch, setNewSearch]= useState('')
 const navigate = useNavigate();
+const [tempCheck, setTempCheck] = useState(false)
+
+  function onChangeHandler(e){
+    setTempCheck(e.target.checked)
+      unitsHandler()
+  }
+
 
 function searchHandler(e){
   e.preventDefault();
@@ -37,7 +44,18 @@ return (
         <i className="material-icons">search</i>
         </button>
     </form>
-  </li>  </ul>
+  </li>
+  <li><div className="switch right">
+    <label className="black-text">
+      F°
+      <input type="checkbox"  
+      checked={tempCheck}
+      onChange={onChangeHandler}/>
+      <span className="lever grey"></span>
+        C°
+    </label>
+        </div></li>
+  </ul>
   </div>
   </nav>
 )
