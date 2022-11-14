@@ -5,11 +5,6 @@ import DailyWeather from './DailyWeather'
 
 
 function WeatherCard({ currentWeather, currentLocation, daily, hourly, buttonClickHandler}){
-const [home, setHome] = useState(false)
-
-function homeClickHandler(){
-  setHome((home) => !home)
-}
 
 return (
     <>

@@ -8,19 +8,16 @@
 
 body {
   background-color: #202124;
-  justify-content: center;
-  align-items: center;
- 
+  height: 100vh;
 }
 
 .cardContainerDiv{
   height: 100vh;
-  position: absolute;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  padding-left: 36%;
 }
 
 #searchForm {
@@ -208,6 +205,11 @@ text-align: center;
   overflow-y:  scroll;
 }
 
+.savedLocationHeader{
+  padding-left: 4%;
+ text-decoration: underline;
+}
+
 .savedLocationsContainer{
   position: relative;
   width: 1150px;
@@ -241,6 +243,7 @@ border-radius: 18px;
 text-align: center;
 padding-left: 20px;
 } 
+
 
 .removeButton{
   position: relative;

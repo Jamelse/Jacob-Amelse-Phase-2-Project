@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 
-function LocationForm({submitHandler, units}){
+function LocationForm({submitHandler}){
 const [search, setSearch] = useState('')
 
 

@@ -20,11 +20,9 @@ function findTime(location){
    })
 }
 
-
-  
-  return (
+return (
     <>
-    <h2 className="white-text">Saved Locations</h2>
+    <h2 className="savedLocationHeader white-text">Saved Locations</h2>
     <div className="savedLocationsContainer">
       
       {savedLocations.map((location) => {

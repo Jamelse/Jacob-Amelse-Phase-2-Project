@@ -1,7 +1,7 @@
 import React from "react";
 import WeatherIcon from "./WeatherIcon";
 
-function HourlyWeather({weather, currentWeather}){
+function HourlyWeather({weather}){
 
   function getTime(time){
   let hours = time.getHours();
