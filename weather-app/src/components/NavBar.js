@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import {NavLink, useNavigate} from 'react-router-dom'
 
-
+// Component that displays the NAVBAR on the page
 
 function NavBar({submitHandler}){
-const [newSearch, setNewSearch]= useState('')
+const [newSearch, setNewSearch]= useState('') // State for controlled component search box in NavBar
 const navigate = useNavigate();
 
-function searchHandler(e){
+function searchHandler(e){ // Form submit handler that fetches location data based on search input. Passes data to submitHandler function located in App component.
   e.preventDefault();
   fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${newSearch}&limit=4&appid=9b600cedc45f6dc87e1d5d5a50509246
   `).then(r => r.json())
@@ -38,16 +38,6 @@ return (
         </button>
     </form>
   </li>
-  {/* <li><div className="switch right">
-    <label className="black-text">
-      F°
-      <input type="checkbox"  
-      checked={tempCheck}
-      onChange={onChangeHandler}/>
-      <span className="lever grey"></span>
-        C°
-    </label>
-        </div></li> */}
   </ul>
   </div>
   </nav>

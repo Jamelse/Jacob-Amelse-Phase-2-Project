@@ -16,7 +16,8 @@ function App(){
   const [savedHourly, setSavedHourly] = useState([])
   const navigate = useNavigate();
 
-  function saveButtonClick(location, weather, daily, hourly){
+ 
+  function saveButtonClick(location, weather, daily, hourly){ // Handler function for save location button. Saves all the needed weather info for that card
     const mappedLocations = savedLocations.map((loc) => {
       return loc.name
     })
@@ -32,7 +33,7 @@ function App(){
     }
   }
 
-  const successCallback = (position) => {
+  const successCallback = (position) => { // Callback function for successful navigator geolocation permissions. Fetches location and current weather based on geolocation.
    fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${'imperial'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
          .then(r => r.json())
         .then(data => setCurrentWeather(data))
@@ -41,15 +42,16 @@ function App(){
   .then(data => setLocation(data))
         setGivenLocation(true)
   };
-  const options = {
+  
+  const options = { // Options function for navigator geolocation
     enableHighAccuracy: true,
   };
   
-  const errorCallback = (error) => {
+  const errorCallback = (error) => { // Callback for denied navigator geolocation permissions 
     console.log(error)
   };
 
-  function submitHandler(data){
+  function submitHandler(data){ // Handler function for a location search. Fetches data passed into the function's argument from a form submit.
   if(data){
     fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${data[0].lat}&lon=${data[0].lon}&units=${'imperial'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
     .then(r => r.json())
@@ -61,12 +63,12 @@ function App(){
  } 
  }
   
-  useEffect(() => {
+  useEffect(() => { 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
     submitHandler()   
   }, [])
 
-  function removeButtonCLick(card){
+  function removeButtonCLick(card){ // Handler function for the remove button on a weather card
     const removedLocations = savedLocations.filter((location) => {
       return location.name !== card.name
     })

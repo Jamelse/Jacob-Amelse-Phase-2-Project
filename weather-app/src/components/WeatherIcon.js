@@ -1,8 +1,11 @@
 import React from "react";
 import ReactAnimatedWeather from 'react-animated-weather'
 
+// Component that contains the animated weather icons from ReactAnimatedWeather import
+
 function WeatherIcon({icon, size}){
-  const icons = {
+  
+  const icons = { // Matches icon with the icon code from API
     "01d": "CLEAR_DAY",
     "01n": "CLEAR_NIGHT",
     "02d": "PARTLY_CLOUDY_DAY",
