@@ -19,7 +19,6 @@ const hourly = savedHourly.filter((hour) => {
 })
 
 if (!savedWeather) return  <h2 className='white-text'>Loading...</h2>
-console.log(location)
 
   return (<div className='cardContainerDiv'>
     {savedWeather && savedDaily ? 

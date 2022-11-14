@@ -20,15 +20,17 @@ function App(){
     const mappedLocations = savedLocations.map((loc) => {
       return loc.name
     })
+    const mappedWeather = savedWeather.map((wet) => {
+      return wet.temp
+    })
     
-    if (!mappedLocations.includes(location.name)){
+    if (!mappedLocations.includes(location.name) && !mappedWeather.includes(weather.temp)){
       setSavedLocations([...savedLocations, location])
       setSavedWeather([...savedWeather, weather])
       setSavedDaily([...savedDaily, daily])
       setSavedHourly([...savedHourly, hourly])
     }
   }
-
 
   const successCallback = (position) => {
    fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${'imperial'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
