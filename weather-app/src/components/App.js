@@ -3,26 +3,29 @@ import NavBar from './NavBar'
 import Home from './Home'
 import {Route, Routes} from 'react-router-dom'
 import SavedWeatherLocations from './SavedWeatherLocations'
-
+import WeatherDetail from './WeatherDetail'
 
 
 function App(){
   const [currentWeather, setCurrentWeather] = useState([])
   const [location, setLocation] = useState([])
-  const [units, setUnits] = useState(true)
   const [givenLocation, setGivenLocation] = useState(false)
   const [savedLocations, setSavedLocations] = useState([])
   const [savedWeather, setSavedWeather] = useState([])
+  const [savedDaily, setSavedDaily] = useState([])
+  const [savedHourly, setSavedHourly] = useState([])
 
-  function saveButtonClick(location, weather){
+  function saveButtonClick(location, weather, daily, hourly){
     if (!savedLocations.includes(location) && !savedWeather.includes(weather)){
       setSavedLocations([...savedLocations, location])
       setSavedWeather([...savedWeather, weather])
+      setSavedDaily([...savedDaily, daily])
+      setSavedHourly([...savedHourly, hourly])
     }
   }
 
   const successCallback = (position) => {
-   fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${units ? 'imperial' : 'metric'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
+   fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${'imperial'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
          .then(r => r.json())
         .then(data => setCurrentWeather(data))
   fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=1&appid=9b600cedc45f6dc87e1d5d5a50509246`)
@@ -40,7 +43,7 @@ function App(){
 
   function submitHandler(data){
   if(data){
-    fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${data[0].lat}&lon=${data[0].lon}&units=${units ? 'imperial' : 'metric'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
+    fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${data[0].lat}&lon=${data[0].lon}&units=${'imperial'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
     .then(r => r.json())
     .then(locationData => {
       setCurrentWeather(locationData)
@@ -56,26 +59,37 @@ function App(){
     submitHandler()   
   }, [])
 
-  
-
-  function unitsHandler(){
-    setUnits(units => !units);
+  function removeButtonCLick(card){
+    const removedLocations = savedLocations.filter((location) => {
+      return location.name !== card.name
+    })
+    setSavedLocations(removedLocations)
   }
-  console.log(units)
 
   return (
     <div>
-      <NavBar submitHandler={submitHandler} unitsHandler={unitsHandler}/>
+      <NavBar submitHandler={submitHandler}/>
       <Routes>
-        <Route path='/locations' element={<SavedWeatherLocations savedLocations={savedLocations} savedWeather={savedWeather}/>}>
+        <Route exact path='/locations' element={
+        <SavedWeatherLocations 
+        savedLocations={savedLocations} 
+        savedWeather={savedWeather}
+        removeButtonHandler={removeButtonCLick}/>}>
         </Route>
-      <Route exact path='/' element={<Home 
+        <Route  path='/locations/:index' element={
+          <WeatherDetail 
+          savedLocation={savedLocations} 
+          savedWeather={savedWeather}
+          savedDaily={savedDaily}
+          savedHourly={savedHourly}/>
+        }></Route>
+      <Route exact path='/' element={
+      <Home 
        submitHandler={submitHandler}
        daily={currentWeather.daily}
        currentWeather={currentWeather.current} 
        givenLocation={givenLocation}
        currentLocation={location}
-       unitsHandler={unitsHandler}
        hourly={currentWeather.hourly}
        buttonClickHandler={saveButtonClick}/>}>
       </Route>

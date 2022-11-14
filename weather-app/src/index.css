@@ -8,14 +8,19 @@
 
 body {
   background-color: #202124;
+  justify-content: center;
+  align-items: center;
  
 }
 
-#homeDiv {
+.cardContainerDiv{
   height: 100vh;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  padding-left: 36%;
 }
 
 #searchForm {

@@ -28,7 +28,7 @@ return (
   <a href="#" className="brand-logo center black-text">Logo</a>  
    <ul className="left hide-on-med-and-down">              
   <li ><NavLink className="black-text"exact to='/'>Home</NavLink></li>
-  <li><NavLink className="black-text" to='/locations'>Saved Locations</NavLink></li>
+  <li><NavLink className="black-text" exact to='/locations'>Saved Locations</NavLink></li>
   </ul>
   <ul className='hide-on-med-and-down  right'>
   <li>   
