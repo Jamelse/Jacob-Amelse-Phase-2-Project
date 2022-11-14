@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import WeatherCard from './WeatherCard'
 
-function WeatherDetail({savedLocation, savedWeather, savedDaily, savedHourly}){
+function WeatherDetail({savedLocation, savedWeather, savedDaily, savedHourly, removeButtonCLick}){
   const {index} = useParams();
   
 const location = savedLocation.filter((location) => {
@@ -19,7 +19,7 @@ const hourly = savedHourly.filter((hour) => {
 })
 
 if (!savedWeather) return  <h2 className='white-text'>Loading...</h2>
-
+console.log(location)
 
   return (<div className='cardContainerDiv'>
     {savedWeather && savedDaily ? 
@@ -28,6 +28,11 @@ if (!savedWeather) return  <h2 className='white-text'>Loading...</h2>
     daily={daily[0]}
     currentLocation={location}
     hourly={hourly[0]}
+    button={<button 
+      onClick={() => removeButtonCLick(location[0])}
+      className='transparent left'><a className="waves-effect waves-light btn transparent">
+        <i className="material-icons left ">remove_circle_outline</i>Remove Location</a>
+        </button>}
     /> : <h2>Loading...</h2>}
     </div>)
 }

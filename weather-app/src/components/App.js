@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import NavBar from './NavBar'
 import Home from './Home'
-import {Route, Routes} from 'react-router-dom'
+import {Route, Routes, useNavigate} from 'react-router-dom'
 import SavedWeatherLocations from './SavedWeatherLocations'
 import WeatherDetail from './WeatherDetail'
 
@@ -14,15 +14,21 @@ function App(){
   const [savedWeather, setSavedWeather] = useState([])
   const [savedDaily, setSavedDaily] = useState([])
   const [savedHourly, setSavedHourly] = useState([])
+  const navigate = useNavigate();
 
   function saveButtonClick(location, weather, daily, hourly){
-    if (!savedLocations.includes(location) && !savedWeather.includes(weather)){
+    const mappedLocations = savedLocations.map((loc) => {
+      return loc.name
+    })
+    
+    if (!mappedLocations.includes(location.name)){
       setSavedLocations([...savedLocations, location])
       setSavedWeather([...savedWeather, weather])
       setSavedDaily([...savedDaily, daily])
       setSavedHourly([...savedHourly, hourly])
     }
   }
+
 
   const successCallback = (position) => {
    fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${'imperial'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
@@ -53,7 +59,6 @@ function App(){
  } 
  }
   
-  
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
     submitHandler()   
@@ -64,6 +69,7 @@ function App(){
       return location.name !== card.name
     })
     setSavedLocations(removedLocations)
+    navigate('/locations')
   }
 
   return (
@@ -81,7 +87,8 @@ function App(){
           savedLocation={savedLocations} 
           savedWeather={savedWeather}
           savedDaily={savedDaily}
-          savedHourly={savedHourly}/>
+          savedHourly={savedHourly}
+          removeButtonCLick={removeButtonCLick}/>
         }></Route>
       <Route exact path='/' element={
       <Home 
