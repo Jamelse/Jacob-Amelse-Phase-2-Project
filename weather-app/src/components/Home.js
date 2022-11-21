@@ -6,12 +6,13 @@ import LocationForm from './LocationForm'
 
 function Home({savedLocations, submitHandler, currentWeather, givenLocation, daily, currentLocation, hourly, onSaveClick}){
 
-  function savedData(name){
+  function savedData(name){ // POST request function that saves the location and its info to db.json
   const checkedLocation = savedLocations.map((loc) => {
       return loc.location[0].name
      })
   
   if (!checkedLocation.includes(name)){
+    
     const saveData = {
       location: currentLocation,
       weather: currentWeather,
