@@ -4,7 +4,32 @@ import LocationForm from './LocationForm'
 
 // Home component that renders the searched or given location weather card
 
-function Home({buttonClickHandler, submitHandler, currentWeather, givenLocation, daily, currentLocation, hourly}){
+function Home({savedLocations, submitHandler, currentWeather, givenLocation, daily, currentLocation, hourly, onSaveClick}){
+
+  function savedData(name){
+  const checkedLocation = savedLocations.map((loc) => {
+      return loc.location[0].name
+     })
+  
+  if (!checkedLocation.includes(name)){
+    const saveData = {
+      location: currentLocation,
+      weather: currentWeather,
+      daily: daily,
+      hourly: hourly
+      }
+     fetch('http://localhost:3000/weather', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify(saveData)
+    })
+    .then(r => r.json())
+    .then((data) => {
+      onSaveClick(data)
+    })}
+  }
  
 return (
     <div className='cardContainerDiv'>
@@ -14,13 +39,12 @@ return (
       daily={daily}
       currentLocation={currentLocation}
       hourly={hourly}
-      buttonClickHandler={buttonClickHandler}
       button={
       <button 
-        onClick={() => buttonClickHandler(currentLocation[0], currentWeather, daily, hourly)}
-        className='transparent left'><a className="saveButton waves-effect waves-light btn transparent">
+         onClick={() => savedData(currentLocation[0].name)}
+          className='transparent left'><a className="saveButton waves-effect waves-light btn transparent">
           <i className="material-icons left ">add_circle_outline</i>Save Location</a>
-          </button>}/>
+      </button>}/>
       : <LocationForm submitHandler={submitHandler} /> }
       </div>
   )

@@ -5,7 +5,7 @@ import DailyWeather from './DailyWeather'
 
 // Component that displays a weather card for all the weather and location data
 
-function WeatherCard({ currentWeather, currentLocation, daily, hourly, button}){
+function WeatherCard({ currentWeather, currentLocation, daily, hourly, button }){
 
 return (
     <>

@@ -1,44 +1,48 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import WeatherCard from './WeatherCard'
 
 // Component that displays a weather card for a saved location when the dropdown arrow is clicked
 
-function WeatherDetail({savedLocation, savedWeather, savedDaily, savedHourly, removeButtonCLick}){
-  const {index} = useParams();
-  
-const location = savedLocation.filter((location) => { // Matches saved location based on index of array that matches with the page Params
-  return savedLocation.indexOf(location) == index;
-})
-const filteredWeather = savedWeather.filter((weather) => {  // Matches saved weather based on index of array that matches with the page Params
-  return savedWeather.indexOf(weather) == index;
-})
-const daily = savedDaily.filter((day) => {  // Matches saved daily weather based on index of array that matches with the page Params
-  return savedDaily.indexOf(day) == index;
-})
-const hourly = savedHourly.filter((hour) => { // Matches saved hourly weather based on index of array that matches with the page Params
-  return savedHourly.indexOf(hour) == index;
-})
+function WeatherDetail({removeButtonCLick}){
+  const [details, setDetails] = useState(null)
+  const {id} = useParams();
 
-if (!savedWeather) return  <h2 className='white-text'>Loading...</h2>
+useEffect(() => {
+  fetch(`http://localhost:3000/weather/${id}`)
+  .then(r => r.json())
+  .then(data => setDetails(data))
+}, [id])
 
-  return (
+if (!details) {
+  return <h1 className='white-text center'>Loading...</h1>
+}
+
+function removeButtonHandle(location){
+  fetch(`http://localhost:3000/weather/${location.id}`, {
+      method: 'DELETE',
+    })
+    .then(r => r.json())
+    .then(() => removeButtonCLick(location))
+}
+
+return (
   <div className='cardContainerDiv'>
-    {savedWeather && savedDaily ? 
-    <WeatherCard 
-    currentWeather={filteredWeather[0]} 
-    daily={daily[0]}
-    currentLocation={location}
-    hourly={hourly[0]}
-    button={
-    <button 
-      onClick={() => removeButtonCLick(location[0])}
-      className='transparent left'><a className="removeIcon waves-effect waves-light btn transparent">
-      <i className="material-icons left ">remove_circle_outline</i>Remove Location</a>
-    </button>}/> 
-    : <h2>Loading...</h2>}
-    </div>
-    )
+     {
+     <WeatherCard 
+     currentWeather={details.weather} 
+     daily={details.daily}
+     currentLocation={details.location}
+     hourly={details.hourly}
+     button={
+     <button 
+       onClick={() => removeButtonHandle(details)}
+       className='transparent left'><a className="removeIcon waves-effect waves-light btn transparent">
+       <i className="material-icons left ">remove_circle_outline</i>Remove Location</a>
+     </button>}/>
+     }
+     </div>
+  )
 }
 
 export default WeatherDetail

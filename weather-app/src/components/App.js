@@ -11,28 +11,18 @@ function App(){
   const [location, setLocation] = useState([])
   const [givenLocation, setGivenLocation] = useState(false)
   const [savedLocations, setSavedLocations] = useState([])
-  const [savedWeather, setSavedWeather] = useState([])
-  const [savedDaily, setSavedDaily] = useState([])
-  const [savedHourly, setSavedHourly] = useState([])
   const navigate = useNavigate();
-
  
-  function saveButtonClick(location, weather, daily, hourly){ // Handler function for save location button. Saves all the needed weather info for that card
-    const mappedLocations = savedLocations.map((loc) => {
-      return loc.name
-    })
-    const mappedWeather = savedWeather.map((wet) => {
-      return wet.temp
-    })
-    
-    if (!mappedLocations.includes(location.name) && !mappedWeather.includes(weather.temp)){
-      setSavedLocations([...savedLocations, location])
-      setSavedWeather([...savedWeather, weather])
-      setSavedDaily([...savedDaily, daily])
-      setSavedHourly([...savedHourly, hourly])
-    }
-  }
+  useEffect(() => {   // Fetches local Json server data
+    fetch('http://localhost:3000/weather')
+    .then(r => r.json())
+    .then((data) => setSavedLocations(data))
+  }, [])
 
+  function onSaveClick(newLocation){  // Handler function to update saved location state. 
+    setSavedLocations([...savedLocations, newLocation])
+  }
+ 
   const successCallback = (position) => { // Callback function for successful navigator geolocation permissions. Fetches location and current weather based on geolocation.
    fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${'imperial'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
          .then(r => r.json())
@@ -68,9 +58,9 @@ function App(){
     submitHandler()   
   }, [])
 
-  function removeButtonCLick(card){ // Handler function for the remove button on a weather card
-    const removedLocations = savedLocations.filter((location) => {
-      return location.name !== card.name
+  function removeButtonCLick(deleteTarget){ // Handler function for the remove button on a weather card
+    const removedLocations = savedLocations.filter((locations) => {
+      return locations.id !== deleteTarget.id
     })
     setSavedLocations(removedLocations)
     navigate('/locations')
@@ -83,27 +73,28 @@ function App(){
         <Route exact path='/locations' element={
         <SavedWeatherLocations 
         savedLocations={savedLocations} 
-        savedWeather={savedWeather}
         removeButtonHandler={removeButtonCLick}/>}>
         </Route>
-        <Route  path='/locations/:index' element={
+        <Route  path='/locations/:id' element={
+          savedLocations ? 
           <WeatherDetail 
           savedLocation={savedLocations} 
-          savedWeather={savedWeather}
-          savedDaily={savedDaily}
-          savedHourly={savedHourly}
           removeButtonCLick={removeButtonCLick}/>
-        }></Route>
+        : <h1 className='white-text center'>Not Found!</h1>}></Route>
       <Route exact path='/' element={
       <Home 
+      savedLocations={savedLocations}
        submitHandler={submitHandler}
        daily={currentWeather.daily}
        currentWeather={currentWeather.current} 
        givenLocation={givenLocation}
        currentLocation={location}
        hourly={currentWeather.hourly}
-       buttonClickHandler={saveButtonClick}/>}>
+       onSaveClick={onSaveClick}/>}>
       </Route>
+      <Route path='*' element={
+        <h1 className='white-text'>Not Found!</h1>
+      }></Route>
        </Routes>
     </div>
     
