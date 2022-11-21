@@ -8,7 +8,7 @@ const [search, setSearch] = useState('') // Controlled component state for the s
 
 function onSubmitHandler(e){  // Submit handler function that fetches location data based on search input. Then pushes this data to the submitHandler function located in App component
   e.preventDefault();
-  fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=4&appid=9b600cedc45f6dc87e1d5d5a50509246
+  fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=4&appid=9b600cedc45f6dc87e1d5d5a50509246
   `).then(r => r.json())
   .then(data => submitHandler(data) )
 }
