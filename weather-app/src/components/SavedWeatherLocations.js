@@ -32,13 +32,13 @@ return (
         <button 
         onClick={()=> removeButtonHandler(location)}
         className="removeButton transparent left waves-effect waves-red">
-          <i className="removeIcon material-icons small white-text" >remove</i></button>
+          <i className="removeIcon material-icons small" >remove</i></button>
         <br></br>
         <h2 className="savedWeatherName">{location.name}</h2> 
         <WeatherIcon icon={findTime(location)[0].weather[0].icon} size={100}/>
         <h3 className="savedWeatherTemp">{findTemp(location)}</h3>
         <button className="savedWeatherButton transparent">
-          <Link to={`/locations/${savedLocations.indexOf(location)}`}><i className="material-icons medium white-text">arrow_drop_down</i></Link>
+          <Link to={`/locations/${savedLocations.indexOf(location)}`}><p className="detailText">Detail</p><i className="material-icons small white-text">arrow_drop_down</i></Link>
           </button>
         </div>)
       

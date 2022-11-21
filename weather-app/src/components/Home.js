@@ -18,7 +18,7 @@ return (
       button={
       <button 
         onClick={() => buttonClickHandler(currentLocation[0], currentWeather, daily, hourly)}
-        className='transparent left'><a className="waves-effect waves-light btn transparent">
+        className='transparent left'><a className="saveButton waves-effect waves-light btn transparent">
           <i className="material-icons left ">add_circle_outline</i>Save Location</a>
           </button>}/>
       : <LocationForm submitHandler={submitHandler} /> }

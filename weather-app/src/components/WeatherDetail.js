@@ -33,7 +33,7 @@ if (!savedWeather) return  <h2 className='white-text'>Loading...</h2>
     button={
     <button 
       onClick={() => removeButtonCLick(location[0])}
-      className='transparent left'><a className="waves-effect waves-light btn transparent">
+      className='transparent left'><a className="removeIcon waves-effect waves-light btn transparent">
       <i className="material-icons left ">remove_circle_outline</i>Remove Location</a>
     </button>}/> 
     : <h2>Loading...</h2>}
