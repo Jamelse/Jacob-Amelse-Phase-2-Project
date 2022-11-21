@@ -11,6 +11,63 @@ body {
   height: 100vh;
 }
 
+.navbar {
+  background-color: #005986;
+}
+
+.navHome{
+  font-size: 24px;
+  font-weight: 100px;
+  color: white;
+}
+
+.navHome:hover{
+  color: #005986;
+  background-color: white;
+  }
+
+.navLocation{
+  font-size: 24px;
+  font-weight: 100px;
+  color: white;
+}
+
+.navLocation:hover{
+  color: #005986;
+  background-color: white;
+  }
+
+.navsearch {
+  width: 100%;
+  height: min-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+
+.navsearch input{
+  width: 80%;
+  font-size: 24px;
+  font-weight: 500;
+  padding-left: 32px;
+  color: white;
+}
+
+.navsearch input::placeholder {
+  font-weight: 500;
+  color: rgba(255,255,255,0.4); 
+}
+
+.navsearch input:focus + label {
+  color: white !important;
+}
+
+.navsearch input:focus {
+  border-bottom: 1px solid white !important;
+  box-shadow: 0 1px 0 0 white !important
+}
+
 .cardContainerDiv{
   height: 100vh;
   position: relative;
@@ -49,6 +106,16 @@ border-radius: 18px;
 .search input::placeholder {
   font-weight: 500;
   color: dimgray;
+  
+}
+
+.search input:focus + label {
+  color: #005986 !important;
+}
+
+.search input:focus {
+  border-bottom: 1px solid #005986 !important;
+  box-shadow: 0 1px 0 0 #005986 !important
 }
 
 #searchButton {
@@ -62,27 +129,23 @@ border-radius: 18px;
 
 #searchButton:hover{
   color: white;
-  background-color: lightslategrey;
+  background-color: #005986;
 } 
 
 #searchButtonNav {
   cursor: pointer;
   background-color: transparent;
+  color: white;
 }
 
 #searchButtonNav:hover{
-  color: white;
-  background-color: lightslategrey;
+  color: #005986;
+  background-color: white;
 }
 
 #locationSymbol {
   width: 50px;
   font-size: 28px;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }
 
 #unitsToggle {

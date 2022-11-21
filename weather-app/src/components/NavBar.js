@@ -16,17 +16,17 @@ function searchHandler(e){ // Form submit handler that fetches location data bas
 }
 
 return (
- <nav className="white">
+ <nav className="navbar">
 <div className="nav-wrapper">
-  <a href="#" className="brand-logo center black-text">Logo</a>  
+  <p className="brand-logo center white-text">Jamelse Weather</p>  
    <ul className="left hide-on-med-and-down">              
-  <li ><NavLink className="black-text"exact to='/'>Home</NavLink></li>
-  <li><NavLink className="black-text" exact to='/locations'>Saved Locations</NavLink></li>
+  <li><NavLink className="navHome" exact to='/'>Home</NavLink></li>
+  <li><NavLink className="navLocation" exact to='/locations'>Saved Locations</NavLink></li>
   </ul>
   <ul className='hide-on-med-and-down  right'>
   <li>   
- <form className='search' onSubmit={searchHandler}>
-    <i className="material-icons black-text" id='locationSymbol'>location_on</i>
+ <form className='navsearch' onSubmit={searchHandler}>
+    <i className="material-icons white-text" id='locationSymbol'>location_on</i>
       <input 
       onChange={(e) => setNewSearch(e.target.value)}
       type='text'

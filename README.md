@@ -1,4 +1,4 @@
-# JamelseWeatherApp
+# JamelseWeather
 Phase 2 React App for FlatIron School
  
  - Great way to check your local weather and save your favorite location's weather + weather outlooks!
