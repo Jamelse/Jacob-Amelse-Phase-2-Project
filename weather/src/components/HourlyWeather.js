@@ -1,11 +1,9 @@
 import React from "react";
 import WeatherIcon from "./WeatherIcon";
 
-// Component that renders the hourly weather outlook for the next 6 hours 
-
 function HourlyWeather({weather}){
 
-  function getTime(time){ // Helper function that takes in an hour and converts it from military time to standard time
+  function getTime(time){ 
   let hours = time.getHours();
   let period = "AM"
   if(hours >= 12){
@@ -15,7 +13,6 @@ function HourlyWeather({weather}){
   if(hours === 0){
     hours = 12
   }
-
   return `${hours}${period} `
 } 
 
@@ -26,10 +23,10 @@ return (
       {weather.slice(0, 0 + 6).map((hour) => {
         return (
         <div key={hour.dt}className="col s2">
-        <p>{getTime(new Date( (hour.dt) * 1000))}</p>
+          <p>{getTime(new Date( (hour.dt) * 1000))}</p>
           <WeatherIcon className="col s1" icon={hour.weather[0].icon} size={25}/>
           <p>{`${Math.round(hour.temp)}°`}</p>
-          </div>)
+        </div>)
       })}
       </div> : null}
     </>

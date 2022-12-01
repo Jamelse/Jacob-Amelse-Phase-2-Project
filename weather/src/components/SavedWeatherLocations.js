@@ -2,8 +2,6 @@ import React from "react";
 import WeatherIcon from "./WeatherIcon";
 import {Link} from 'react-router-dom'
 
-// Component that displays the saved weather cards when user saves a location. Located on Saved Locations button on NavBar
-
 function SavedWeatherLocations({savedLocations, removeButtonHandler}){
   
   function handleDelete(location){

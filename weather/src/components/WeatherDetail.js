@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import WeatherCard from './WeatherCard'
 
-// Component that displays a weather card for a saved location when the dropdown arrow is clicked
-
 function WeatherDetail({removeButtonCLick}){
   const [details, setDetails] = useState(null)
   const {id} = useParams();
@@ -28,8 +26,7 @@ function removeButtonHandle(location){
 
 return (
   <div className='cardContainerDiv'>
-     {
-     <WeatherCard 
+     { <WeatherCard 
      currentWeather={details.weather} 
      daily={details.daily}
      currentLocation={details.location}
@@ -39,8 +36,7 @@ return (
        onClick={() => removeButtonHandle(details)}
        className='transparent left'><a className="removeIcon waves-effect waves-light btn transparent">
        <i className="material-icons left ">remove_circle_outline</i>Remove Location</a>
-     </button>}/>
-     }
+     </button>}/> }
      </div>
   )
 }

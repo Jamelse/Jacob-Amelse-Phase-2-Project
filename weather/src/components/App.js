@@ -5,7 +5,6 @@ import {Route, Routes, useNavigate} from 'react-router-dom'
 import SavedWeatherLocations from './SavedWeatherLocations'
 import WeatherDetail from './WeatherDetail'
 
-
 function App(){
   const [currentWeather, setCurrentWeather] = useState([])
   const [location, setLocation] = useState([])
@@ -13,17 +12,17 @@ function App(){
   const [savedLocations, setSavedLocations] = useState([])
   const navigate = useNavigate();
  
-  useEffect(() => {   // Fetches local Json server data
+  useEffect(() => {   
     fetch('http://localhost:3000/weather')
     .then(r => r.json())
     .then((data) => setSavedLocations(data))
   }, [])
 
-  function onSaveClick(newLocation){  // Handler function to update saved location state. 
+  function onSaveClick(newLocation){  
     setSavedLocations([...savedLocations, newLocation])
   }
  
-  const successCallback = (position) => { // Callback function for successful navigator geolocation permissions. Fetches location and current weather based on geolocation.
+  const successCallback = (position) => { 
    fetch (`https://api.openweathermap.org/data/3.0/onecall?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${'imperial'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
          .then(r => r.json())
         .then(data => setCurrentWeather(data))
@@ -33,15 +32,15 @@ function App(){
         setGivenLocation(true)
   };
   
-  const options = { // Options function for navigator geolocation
+  const options = { 
     enableHighAccuracy: true,
   };
   
-  const errorCallback = (error) => { // Callback for denied navigator geolocation permissions 
+  const errorCallback = (error) => {  
     console.log(error)
   };
 
-  function submitHandler(data){ // Handler function for a location search. Fetches data passed into the function's argument from a form submit.
+  function submitHandler(data){ 
   if(data){
     fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${data[0].lat}&lon=${data[0].lon}&units=${'imperial'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
     .then(r => r.json())
@@ -97,7 +96,6 @@ function App(){
       }></Route>
        </Routes>
     </div>
-    
   )
 }
 

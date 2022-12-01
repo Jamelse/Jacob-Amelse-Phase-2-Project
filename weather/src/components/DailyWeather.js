@@ -1,11 +1,9 @@
 import React from 'react'
 import WeatherIcon from './WeatherIcon'
 
-// Component that renders the daily weather outlook for the next 7 days
-
 function DailyWeather({weather}){
  
-  function dayDisplay(day){ // Helper function to turn the new Date into days of the week
+  function dayDisplay(day){ 
     const getDay = day.toLocaleString('default', {weekday: 'long'})
     return getDay
   }

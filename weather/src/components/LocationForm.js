@@ -1,12 +1,9 @@
 import React, {useState} from "react";
 
-// Component that renders in home page if no geolocation permissions are given. Renders a search box input field
-
 function LocationForm({submitHandler}){
-const [search, setSearch] = useState('') // Controlled component state for the search box
+const [search, setSearch] = useState('') 
 
-
-function onSubmitHandler(e){  // Submit handler function that fetches location data based on search input. Then pushes this data to the submitHandler function located in App component
+function onSubmitHandler(e){  
   e.preventDefault();
   fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=4&appid=9b600cedc45f6dc87e1d5d5a50509246
   `).then(r => r.json())
@@ -27,7 +24,7 @@ function onSubmitHandler(e){  // Submit handler function that fetches location d
         </button>
     </form>
   </div>
-)
+  )
 }
 
 export default LocationForm

@@ -2,11 +2,9 @@ import React from 'react'
 import WeatherCard from './WeatherCard'
 import LocationForm from './LocationForm'
 
-// Home component that renders the searched or given location weather card
-
 function Home({savedLocations, submitHandler, currentWeather, givenLocation, daily, currentLocation, hourly, onSaveClick}){
 
-  function savedData(name){ // POST request function that saves the location and its info to db.json
+  function savedData(name){ 
   const checkedLocation = savedLocations.map((loc) => {
       return loc.location[0].name
      })
@@ -34,7 +32,7 @@ function Home({savedLocations, submitHandler, currentWeather, givenLocation, dai
  
 return (
     <div className='cardContainerDiv'>
-      {givenLocation ?  // If given location (geolocation permissions) is true, render the weather card. Else, render the location form (a search box).
+      {givenLocation ? 
       <WeatherCard 
       currentWeather={currentWeather} 
       daily={daily}

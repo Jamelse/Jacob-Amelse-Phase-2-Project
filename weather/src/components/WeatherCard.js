@@ -3,10 +3,7 @@ import WeatherIcon from './WeatherIcon'
 import HourlyWeather from './HourlyWeather'
 import DailyWeather from './DailyWeather'
 
-// Component that displays a weather card for all the weather and location data
-
 function WeatherCard({ currentWeather, currentLocation, daily, hourly, button }){
-
 return (
     <>
       {currentWeather && daily ?  
@@ -19,8 +16,8 @@ return (
         <p className='daily'>{`H:${Math.floor(daily[0].temp.max)}°  L:${Math.floor(daily[0].temp.min)}°`}</p>
         <HourlyWeather weather={hourly}/>
         <DailyWeather weather={daily}/>
-      </div> : <h1 className='white-text'>Getting Weather...</h1>} </>
-  
+      </div> : <h1 className='white-text'>Getting Weather...</h1>} 
+    </>
   )
 }
 
