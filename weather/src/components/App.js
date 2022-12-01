@@ -1,15 +1,18 @@
 import React, {useState, useEffect} from 'react'
 import NavBar from './NavBar'
 import Home from './Home'
+import RecentSearch from './RecentSearch'
 import {Route, Routes, useNavigate} from 'react-router-dom'
 import SavedWeatherLocations from './SavedWeatherLocations'
 import WeatherDetail from './WeatherDetail'
+import RecentDetail from './RecentDetail'
 
 function App(){
-  const [currentWeather, setCurrentWeather] = useState([])
-  const [location, setLocation] = useState([])
-  const [givenLocation, setGivenLocation] = useState(false)
-  const [savedLocations, setSavedLocations] = useState([])
+  const [currentWeather, setCurrentWeather] = useState([]);
+  const [location, setLocation] = useState([]);
+  const [givenLocation, setGivenLocation] = useState(false);
+  const [savedLocations, setSavedLocations] = useState([]);
+  const [recentSearches, setRecentSearches] = useState([]);
   const navigate = useNavigate();
  
   useEffect(() => {   
@@ -18,8 +21,18 @@ function App(){
     .then((data) => setSavedLocations(data))
   }, [])
 
+  useEffect(() => {
+    fetch('http://localhost:3000/recent')
+    .then(r => r.json())
+    .then((data) => setRecentSearches(data))
+  }, [])
+
   function onSaveClick(newLocation){  
     setSavedLocations([...savedLocations, newLocation])
+  }
+  
+  function onSearch(newSearch){
+    setRecentSearches([...recentSearches, newSearch])
   }
  
   const successCallback = (position) => { 
@@ -40,12 +53,29 @@ function App(){
     console.log(error)
   };
 
-  function submitHandler(data){ 
+  function postHandle(searchedLocation, searchedWeather, checked){
+    fetch('http://localhost:3000/recent', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify({
+        location: searchedLocation,
+        weather: searchedWeather,
+        units: checked ? `C°` : `F°`
+      })
+    })
+    .then(r => r.json())
+    .then(currentSearch => onSearch(currentSearch))
+  }
+
+  function submitHandler(data, checked){ 
   if(data){
-    fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${data[0].lat}&lon=${data[0].lon}&units=${'imperial'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
+    fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${data[0].lat}&lon=${data[0].lon}&units=${!checked ? 'imperial' : 'metric'}&appid=9b600cedc45f6dc87e1d5d5a50509246`)
     .then(r => r.json())
     .then(locationData => {
       setCurrentWeather(locationData)
+      postHandle(data, locationData, checked)
     })
     setLocation(data)
     setGivenLocation(true)
@@ -57,7 +87,7 @@ function App(){
     submitHandler()   
   }, [])
 
-  function removeButtonCLick(deleteTarget){ // Handler function for the remove button on a weather card
+  function removeButtonCLick(deleteTarget){ 
     const removedLocations = savedLocations.filter((locations) => {
       return locations.id !== deleteTarget.id
     })
@@ -65,10 +95,27 @@ function App(){
     navigate('/locations')
   }
 
+  function  removeButtonRecent(deleteTarget){
+    const removedLocations = recentSearches.filter((locations) => {
+      return locations.id !== deleteTarget.id
+    })
+    setRecentSearches(removedLocations)
+    navigate('/recent')
+  }
+
   return (
     <div>
       <NavBar submitHandler={submitHandler}/>
       <Routes>
+        <Route path='/recent' element={ 
+        <RecentSearch searches={recentSearches}
+        removeButtonRecent={removeButtonRecent}/> }>
+        </Route>
+        <Route path='/recent/:id' element={
+          recentSearches ? 
+          <RecentDetail navigate={navigate}/>
+        : <h1 className='white-text center'>Not Found!</h1>}>
+        </Route>
         <Route exact path='/locations' element={
         <SavedWeatherLocations 
         savedLocations={savedLocations} 
@@ -76,9 +123,7 @@ function App(){
         </Route>
         <Route  path='/locations/:id' element={
           savedLocations ? 
-          <WeatherDetail 
-          savedLocation={savedLocations} 
-          removeButtonCLick={removeButtonCLick}/>
+          <WeatherDetail navigate={navigate}/>
         : <h1 className='white-text center'>Not Found!</h1>}></Route>
       <Route exact path='/' element={
       <Home 

@@ -2,12 +2,12 @@ import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import WeatherCard from './WeatherCard'
 
-function WeatherDetail({navigate}){
+function RecentDetail({ navigate }){
   const [details, setDetails] = useState(null)
   const {id} = useParams();
 
 useEffect(() => {
-  fetch(`http://localhost:3000/weather/${id}`)
+  fetch(`http://localhost:3000/recent/${id}`)
   .then(r => r.json())
   .then(data => setDetails(data))
 }, [id])
@@ -20,12 +20,12 @@ if (!details) {
 return (
   <div className='cardContainerDiv'>
      { <WeatherCard 
-     currentWeather={details.weather} 
-     daily={details.daily}
+     currentWeather={details.weather.current} 
+     daily={details.weather.daily}
      currentLocation={details.location}
-     hourly={details.hourly}
+     hourly={details.weather.hourly}
      button={<button 
-      onClick={() => navigate('/locations')}
+      onClick={() => navigate('/recent')}
       className='transparent left'><a className="waves-effect waves-light btn transparent">
       <i className="material-icons left ">arrow_back</i>Back</a>
     </button>}/>
@@ -34,4 +34,4 @@ return (
   )
 }
 
-export default WeatherDetail
+export default RecentDetail
