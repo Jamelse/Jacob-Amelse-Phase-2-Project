@@ -40,9 +40,9 @@ return (
       hourly={hourly}
       button={
       <button 
-         onClick={() => savedData(currentLocation[0].name)}
-          className='transparent left'><a className="saveButton waves-effect waves-light btn transparent">
-          <i className="material-icons left ">add_circle_outline</i>Save Location</a>
+        onClick={() => savedData(currentLocation[0].name)}
+        className='transparent left'><a className="saveButton waves-effect waves-light btn transparent">
+        <i className="material-icons left ">add_circle_outline</i>Save Location</a>
       </button>}/>
       : <LocationForm submitHandler={submitHandler} /> }
       </div>

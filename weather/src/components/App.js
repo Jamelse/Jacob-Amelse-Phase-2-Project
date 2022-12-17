@@ -15,18 +15,6 @@ function App(){
   const [recentSearches, setRecentSearches] = useState([]);
   const navigate = useNavigate();
  
-  useEffect(() => {   
-    fetch('http://localhost:3000/weather')
-    .then(r => r.json())
-    .then((data) => setSavedLocations(data))
-  }, [])
-
-  useEffect(() => {
-    fetch('http://localhost:3000/recent')
-    .then(r => r.json())
-    .then((data) => setRecentSearches(data))
-  }, [])
-
   function onSaveClick(newLocation){  
     setSavedLocations([...savedLocations, newLocation])
   }
@@ -84,7 +72,15 @@ function App(){
   
   useEffect(() => { 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
-    submitHandler()   
+    submitHandler()
+    
+    fetch('http://localhost:3000/weather')
+    .then(r => r.json())
+    .then((data) => setSavedLocations(data))
+    
+    fetch('http://localhost:3000/recent')
+    .then(r => r.json())
+    .then((data) => setRecentSearches(data))
   }, [])
 
   function removeButtonCLick(deleteTarget){ 
